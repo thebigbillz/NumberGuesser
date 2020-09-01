@@ -1,7 +1,7 @@
 // Game Value
 let min = 1,
-  max = 20,
-  winningNumber = 2,
+  max = 5,
+  winningNumber = getRandNum(min, max),
   guessesLeft = 3;
 
 // UI Elements
@@ -19,6 +19,8 @@ maxNum.textContent = max;
 
 message.style.display = "none";
 
+//Play Again
+
 //Listen for Guess
 
 guessBtn.addEventListener("click", function (e) {
@@ -34,6 +36,7 @@ guessBtn.addEventListener("click", function (e) {
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
     setMessage(`${winningNumber} is correct! YOU WIN!!!`, "green");
+    playAgain();
     return;
   } else {
     guessesLeft--;
@@ -49,12 +52,28 @@ guessBtn.addEventListener("click", function (e) {
         `Wrong Guess! | Game Over! | Correct Answer : ${winningNumber}`,
         "red"
       );
+      playAgain();
     }
   }
 
   e.preventDefault();
 });
+// Play Again Listener
+game.addEventListener("mousedown", function (e) {
+  if (e.target.className === "play-again") {
+    window.location.reload();
+  }
+});
+// Play Again
+function playAgain() {
+  guessBtn.value = "Play Again";
+  guessBtn.classList.add("play-again");
+  message.style.width = "330px";
+}
 
+function getRandNum(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 //Set Message
 function setMessage(msg, color) {
   message.innerText = msg;
@@ -64,14 +83,14 @@ function setMessage(msg, color) {
   message.style.border = `1px solid ${color}`;
 }
 
-let x = 4;
+// let x = 4;
 
-function dec(x) {
-  x--;
-  console.log(x);
-}
+// function dec(x) {
+//   x--;
+//   console.log(x);
+// }
 
-console.log(x);
-dec(x);
-dec(x);
-console.log(x);
+// console.log(x);
+// dec(x);
+// dec(x);
+// console.log(x);
